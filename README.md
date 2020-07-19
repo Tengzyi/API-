@@ -93,6 +93,64 @@ API驱动智能流程方面，首先在首页上有复制链接及拍照上传�
 以下为数据流程图DFD
 ![](/img/数据DFD.png)
 
+API代码：
+
+[API调用](./img/API调用.png)
+
+```
+# 评论观点抽取API
+
+>request_url = "https://aip.baidubce.com/rpc/2.0/nlp/v1/lexer"
+
+text = "在这家店买过好几次了，是回头客。口味还是一如既往的好吃，就是份量太少太少，价格太贵，而且快递太慢了。"
+text1 = text.encode(encoding='UTF-8')
+print(text1)
+
+params = {
+    "text":text
+}
+access_token = '[24.975e3fd3d1ee178564cf69c80a1f6527.2592000.1597678710.282335-21463884]'
+request_url = request_url + "?access_token=" + access_token + "&charset=UTF-8"
+headers = {'content-type':'application/json'}
+response = requests.post(request_url,data=json.dumps(params),headers=headers)
+
+response.json()
+```
+
+```
+# 文本审核API
+
+request_url = "https://aip.baidubce.com/rest/2.0/solution/v1/text_censor/v2/user_defined"
+
+text = "在这家店买过好几次了，是回头客。口味还是一如既往的好吃，就是份量太少太少，价格太贵，而且快递太慢了。"
+
+params = {"text":text}
+access_token = '[24.975e3fd3d1ee178564cf69c80a1f6527.2592000.1597678710.282335-21463884]'
+request_url = request_url + "?access_token=" + access_token + "&charset=UTF-8"
+headers = {'content-type':'application/x-www-form-urlencoded'}
+response = requests.post(request_url,data=params,headers=headers)
+
+response.json()
+```
+
+```
+# 情感倾向分析API
+
+request_url = "https://aip.baidubce.com/rpc/2.0/nlp/v1/sentiment_classify"
+
+text = "在这家店买过好几次了，是回头客。口味还是一如既往的好吃，就是份量太少太少，价格太贵，而且快递太慢了。"
+
+params = {
+    "text":text
+}
+access_token = '[24.975e3fd3d1ee178564cf69c80a1f6527.2592000.1597678710.282335-21463884]'
+request_url = request_url + "?access_token=" + access_token + "&charset=UTF-8"
+headers = {'content-type':'application/json'}
+response = requests.post(request_url,data=json.dumps(params),headers=headers)
+
+response.json()
+```
+
 API试用链接：
 
 [文本审核API](https://ai.baidu.com/tech/textcensoring)
